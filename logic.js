@@ -1,14 +1,23 @@
 // initial scores
 let computerScore = 0;
 let playerScore = 0;
+
 // getting computer choice
-let computerChoice = generateComputerChoice();
+let computerChoice;
 // getting player choice
-let playerChoice = getPlayerChoice();
+let playerChoice;
 
+for (let i = 1; ; i++) {
+    // getting computer choice
+    computerChoice = generateComputerChoice();
+    // getting player choice
+    playerChoice = getPlayerChoice();
+    console.log(playRound(playerChoice, computerChoice));
+    if (playerScore === 5 || computerScore === 5)
+        break;
+    console.log(`Your score = ${playerScore}, Computer's score = ${computerScore}`);
+}
 
-console.log(playRound(playerChoice, computerChoice));
-console.log(playerScore, computerScore);
 
 /*-------------------------------------function to generate computer choice-------------------------------------*/
 function generateComputerChoice() {
@@ -33,29 +42,35 @@ function generateComputerChoice() {
 
 /*-------------------------------------get and validate player choice-------------------------------------*/
 function getPlayerChoice() {
-    let playerResponse = prompt("Please enter your choice");
-    if (playerResponse != null)
-        return playerResponse;
 
+    let playerResponse = prompt("Enter your choice");
+
+    // normalizing the player's choice
+    let playerChoice = playerResponse.toLowerCase();
+    return playerChoice;
 }
+
 /*-------------------------------------get and validate player choice-------------------------------------*/
 
 
 
 /*-------------------------------------play 1 round of game-------------------------------------*/
 function playRound(playerChoice, computerChoice) {
-    let playerLost = rules(playerChoice, computerChoice);
+    let result = rules(playerChoice, computerChoice);
 
-    if (playerLost === 1) {
+    if (result === "computerWins") {
         computerScore++;
         return `Lost!, Computer chose ${computerChoice}`;
     }
-    else if (playerLost === 2) {
+    else if (result === "tie") {
         return `Tie!, Computer chose ${computerChoice}`;
     }
-    else if (playerLost === 0) {
+    else if (result === "playerWins") {
         playerScore++;
         return `Won!, Computer chose ${computerChoice}`;
+    }
+    else {
+        return "Invalid choice!!";
     }
 }
 /*-------------------------------------play 1 round of game-------------------------------------*/
@@ -65,28 +80,33 @@ function playRound(playerChoice, computerChoice) {
 /*-------------------------------------logic of game-------------------------------------*/
 function rules(playerChoice, computerChoice) {
 
-    let playerLost = 1;
+    let result = "computerWins";
 
-    if (playerChoice === "rock" && computerChoice === "paper") {
-        return playerLost;
+    // winning conditions for computer
+    if ((playerChoice === "rock" && computerChoice === "paper") ||
+        (playerChoice === "paper" && computerChoice === "scissor") ||
+        (playerChoice === "scissor" && computerChoice === "rock")) {
+        return result;
     }
-    else if (playerChoice === "paper" && computerChoice === "scissor") {
-        return playerLost;
+
+    // winning conditions for player
+    else if ((playerChoice === "rock" && computerChoice === "scissor") ||
+        (playerChoice === "paper" && computerChoice === "rock") ||
+        (playerChoice === "scissor" && computerChoice === "paper")) {
+        result = "playerWins";
+        return result;
+
     }
-    else if (playerChoice === "scissor" && computerChoice === "rock") {
-        return playerLost;
-    }
+    //tie
     else if (playerChoice === computerChoice) {
-        playerLost = 2;
-        return playerLost;
+        result = "tie";
+        return result;
     }
-    else if (playerChoice != "rock" && playerChoice != "paper" && playerChoice != "scissor") {
-        alert("Please enter a valid choice");
-    }
+    // if player enters some random text
     else {
-        playerLost = 0;
-        return playerLost
+        result = "invalid";
+        return result
     }
 
 }
-/*-------------------------------------logic of game-------------------------------------*/
+// /*-------------------------------------logic of game-------------------------------------*/
