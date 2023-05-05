@@ -7,16 +7,15 @@ let computerChoice;
 // getting player choice
 let playerChoice;
 
-for (let i = 1; ; i++) {
-    // getting computer choice
-    computerChoice = generateComputerChoice();
-    // getting player choice
-    playerChoice = getPlayerChoice();
-    console.log(playRound(playerChoice, computerChoice));
-    if (playerScore === 5 || computerScore === 5)
-        break;
+
+// getting computer choice
+computerChoice = generateComputerChoice();
+// getting player choice
+playerChoice = getPlayerChoice();
+console.log(playRound(playerChoice, computerChoice));
+if (playerScore === 5 || computerScore === 5)
     console.log(`Your score = ${playerScore}, Computer's score = ${computerScore}`);
-}
+
 
 
 /*-------------------------------------function to generate computer choice-------------------------------------*/
@@ -43,11 +42,17 @@ function generateComputerChoice() {
 /*-------------------------------------get and validate player choice-------------------------------------*/
 function getPlayerChoice() {
 
-    let playerResponse = prompt("Enter your choice");
+    // let playerResponse = prompt("Enter your choice");
 
-    // normalizing the player's choice
-    let playerChoice = playerResponse.toLowerCase();
-    return playerChoice;
+    // // normalizing the player's choice
+    // let playerChoice = playerResponse.toLowerCase();
+    // return playerChoice;
+    const playerChoices = document.querySelectorAll("button");
+    for (playerChoice of playerChoices) {
+        playerChoice.addEventListener("click", (e) => {
+            console.log(e.target.id);
+        })
+    }
 }
 
 /*-------------------------------------get and validate player choice-------------------------------------*/
