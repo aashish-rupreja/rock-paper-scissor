@@ -2,8 +2,6 @@ body {
   background-color: white;
   display: flex;
   flex-direction: column;
-  /* justify-content: center; */
-  /* align-items: center; */
 }
 
 #show-choices {
@@ -12,19 +10,31 @@ body {
   border: 2px solid darkgrey;
   display: flex;
   justify-content: center;
-  height: 70vh;
+  align-items: center;
+  gap: 200px;
+  height: 60vh;
+}
+
+#player-selection,
+#computer-selection {
+  background-color: darkgrey;
+  height: 300px;
+  width: 300px;
+  display: flex;
+  justify-content: center;
 }
 
 #player-choice {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: center;
+  gap: 100px;
 }
 
 .rock,
 .paper,
 .scissor {
-  height: 200px;
-  width: 200px;
+  height: 150px;
+  width: 150px;
   border: 2px solid darkgrey;
   align-self: center;
   display: flex;

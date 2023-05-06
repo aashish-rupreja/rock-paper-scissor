@@ -2,20 +2,60 @@
 let computerScore = 0;
 let playerScore = 0;
 
-// getting computer choice
-let computerChoice;
-// getting player choice
-let playerChoice;
 
+const displayPlayerChoice = document.getElementById("player-selection");
+const displayComputerChoice = document.getElementById("computer-selection");
 
-// getting computer choice
-computerChoice = generateComputerChoice();
-// getting player choice
-playerChoice = getPlayerChoice();
-console.log(playRound(playerChoice, computerChoice));
-if (playerScore === 5 || computerScore === 5)
-    console.log(`Your score = ${playerScore}, Computer's score = ${computerScore}`);
+const playerChoices = document.querySelectorAll("button");
+for (playerSelection of playerChoices) {
+    playerSelection.addEventListener("click", startGame);
+}
 
+function startGame(e) {
+    addPlayerSelectionToUi(e);
+    let playerChoice = `${e.target.id}`;
+    let computerChoice = generateComputerChoice();
+    addComputerSelectionToUi(computerChoice);
+    playRound(playerChoice, computerChoice);
+    console.log(playerScore, computerScore);
+    if (playerScore === 5 || computerScore === 5) {
+        for (playerSelection of playerChoices) {
+            playerSelection.removeEventListener("click", startGame);
+        }
+    }
+}
+
+function addPlayerSelectionToUi(e) {
+    playerChoiceToAdd = document.createElement("div");
+    playerChoiceToAdd.style.cssText = "height: 300px; width:300px; font-size: 200px;";
+    playerChoiceToAdd.textContent = e.target.textContent;
+    playerChoiceToAdd.setAttribute("data-choice", `${e.target.id}`)
+    playerChoiceToAdd.setAttribute("class", `${e.target.id}`)
+    displayPlayerChoice.appendChild(playerChoiceToAdd);
+    if (displayPlayerChoice.childElementCount > 1) {
+        for (child of displayPlayerChoice.children) {
+            displayPlayerChoice.removeChild(child);
+        }
+    }
+
+}
+
+function addComputerSelectionToUi(computerChoice) {
+    computerChoiceToAdd = document.createElement("div");
+    computerChoiceToAdd.style.cssText = "height: 300px; width:300px; font-size: 200px;";
+    if (computerChoice === "rock") computerChoiceToAdd.textContent = "✊";
+    if (computerChoice === "paper") computerChoiceToAdd.textContent = "🖐️";
+    if (computerChoice === "scissor") computerChoiceToAdd.textContent = "✌️";
+    computerChoiceToAdd.setAttribute("data-choice", computerChoice);
+    computerChoiceToAdd.setAttribute("class", computerChoice);
+    displayComputerChoice.appendChild(computerChoiceToAdd);
+    if (displayComputerChoice.childElementCount > 1) {
+        for (child of displayComputerChoice.children) {
+            displayComputerChoice.removeChild(child);
+        }
+    }
+
+}
 
 
 /*-------------------------------------function to generate computer choice-------------------------------------*/
@@ -36,28 +76,6 @@ function generateComputerChoice() {
     return "scissor";
 }
 /*-------------------------------------function to generate computer choice-------------------------------------*/
-
-
-
-/*-------------------------------------get and validate player choice-------------------------------------*/
-function getPlayerChoice() {
-
-    // let playerResponse = prompt("Enter your choice");
-
-    // // normalizing the player's choice
-    // let playerChoice = playerResponse.toLowerCase();
-    // return playerChoice;
-    const playerChoices = document.querySelectorAll("button");
-    for (playerChoice of playerChoices) {
-        playerChoice.addEventListener("click", (e) => {
-            console.log(e.target.id);
-        })
-    }
-}
-
-/*-------------------------------------get and validate player choice-------------------------------------*/
-
-
 
 /*-------------------------------------play 1 round of game-------------------------------------*/
 function playRound(playerChoice, computerChoice) {
