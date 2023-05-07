@@ -2,6 +2,9 @@
 let computerScore = 0;
 let playerScore = 0;
 
+let playerChoiceToAdd;
+let computerChoiceToAdd;
+let h1 = document.querySelector("h1");
 
 const displayPlayerChoice = document.getElementById("player-selection");
 const displayComputerChoice = document.getElementById("computer-selection");
@@ -22,12 +25,19 @@ function startGame(e) {
         for (playerSelection of playerChoices) {
             playerSelection.removeEventListener("click", startGame);
         }
+        if (playerScore === 5) h1.textContent = "You win!!";
+        else h1.textContent = "Computer wins";
     }
+    const playerScoreBoard = document.getElementById("player-score");
+    playerScoreBoard.textContent = `Your score: ${playerScore}`;
+
+    const computerScoreBoard = document.getElementById("computer-score");
+    computerScoreBoard.textContent = `Computer's score: ${computerScore}`;
 }
 
 function addPlayerSelectionToUi(e) {
     playerChoiceToAdd = document.createElement("div");
-    playerChoiceToAdd.style.cssText = "height: 300px; width:300px; font-size: 200px;";
+    playerChoiceToAdd.style.cssText = "height: 250px; width:250px; font-size: 150px;";
     playerChoiceToAdd.textContent = e.target.textContent;
     playerChoiceToAdd.setAttribute("data-choice", `${e.target.id}`)
     playerChoiceToAdd.setAttribute("class", `${e.target.id}`)
@@ -42,7 +52,7 @@ function addPlayerSelectionToUi(e) {
 
 function addComputerSelectionToUi(computerChoice) {
     computerChoiceToAdd = document.createElement("div");
-    computerChoiceToAdd.style.cssText = "height: 300px; width:300px; font-size: 200px;";
+    computerChoiceToAdd.style.cssText = "height: 250px; width:250px; font-size: 150px;";
     if (computerChoice === "rock") computerChoiceToAdd.textContent = "✊";
     if (computerChoice === "paper") computerChoiceToAdd.textContent = "🖐️";
     if (computerChoice === "scissor") computerChoiceToAdd.textContent = "✌️";
@@ -83,13 +93,20 @@ function playRound(playerChoice, computerChoice) {
 
     if (result === "computerWins") {
         computerScore++;
+        h1.textContent = `Lost!, Computer chose ${computerChoice}`;
+        computerChoiceToAdd.style.cssText = "height: 250px; width:250px; font-size: 150px; background-color:rgba(0 130 0);";
+        playerChoiceToAdd.style.cssText = "height: 250px; width:250px; font-size: 150px; background-color:rgba(130 0 0);";
         return `Lost!, Computer chose ${computerChoice}`;
     }
     else if (result === "tie") {
+        h1.textContent = `Tie!, Computer chose ${computerChoice}`;
         return `Tie!, Computer chose ${computerChoice}`;
     }
     else if (result === "playerWins") {
         playerScore++;
+        h1.textContent = `Won!, Computer chose ${computerChoice}`;
+        computerChoiceToAdd.style.cssText = "height: 250px; width:250px; font-size: 150px; background-color:rgba(130 0 0);";
+        playerChoiceToAdd.style.cssText = "height: 250px; width:250px; font-size: 150px; background-color:rgba(0 130 0);";
         return `Won!, Computer chose ${computerChoice}`;
     }
     else {

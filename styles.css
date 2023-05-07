@@ -1,33 +1,60 @@
 body {
-  background-color: white;
+  background-color: black;
   display: flex;
   flex-direction: column;
+  border: 1px solid white;
 }
 
-#show-choices {
-  color: black;
+h1 {
+  color: white;
+  text-align: center;
+}
+
+#choices-and-scores {
   font-size: 50px;
-  border: 2px solid darkgrey;
+  border: 2px solid white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 100px;
+  margin-bottom: 10px;
+}
+
+#scores {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+#player-score,
+#computer-score {
+  width: 300px;
+  height: 100px;
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 200px;
-  height: 60vh;
+  font-size: 35px;
+  color: white;
+}
+
+#choices {
+  display: flex;
+  justify-content: space-evenly;
 }
 
 #player-selection,
 #computer-selection {
-  background-color: darkgrey;
-  height: 300px;
-  width: 300px;
+  height: 250px;
+  width: 250px;
   display: flex;
   justify-content: center;
+  align-items: center;
+  margin-top: 10px;
 }
 
 #player-choice {
   display: flex;
-  justify-content: center;
-  gap: 100px;
+  justify-content: space-around;
+  align-items: center;
 }
 
 .rock,
@@ -35,11 +62,11 @@ body {
 .scissor {
   height: 150px;
   width: 150px;
-  border: 2px solid darkgrey;
+  border: 2px solid white;
   align-self: center;
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: 100px;
-  background-color: white;
+  background-color: black;
 }
